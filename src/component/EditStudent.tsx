@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateStudent } from "../studentapi";
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import StudentDialogContent from "./StudentDialogContent";
+import EditIcon from '@mui/icons-material/Edit';
 
 type FormProps = {
     studentdata: StudentResponse;
@@ -78,7 +79,7 @@ const EditStudent = ({ studentdata }: FormProps) => {
 
     return (
         <>
-            <Button onClick={handleOpen} color="primary">Edit</Button>
+            <Button onClick={handleOpen} color="primary"><EditIcon/></Button>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Edit Student</DialogTitle>
                 <StudentDialogContent student ={student} handleChange={handleChange} />
