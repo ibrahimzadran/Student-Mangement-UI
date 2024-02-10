@@ -3,6 +3,7 @@ import { Student, StudentEntry, StudentResponse } from "../types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateStudent } from "../studentapi";
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
+import StudentDialogContent from "./StudentDialogContent";
 
 type FormProps = {
     studentdata: StudentResponse;
@@ -40,7 +41,7 @@ const EditStudent = ({ studentdata }: FormProps) => {
             course: studentdata.course,
             email: studentdata.email,
             started: studentdata.started,
-            graduation: studentdata.gradution
+            graduation: studentdata.graduation
         });
         setOpen(true);
     };
@@ -80,7 +81,7 @@ const EditStudent = ({ studentdata }: FormProps) => {
             <Button onClick={handleOpen} color="primary">Edit</Button>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Edit Student</DialogTitle>
-        
+                <StudentDialogContent student ={student} handleChange={handleChange} />
                 <DialogActions>
                     <Button color="error" variant='contained' onClick={handleClose}>Cancel</Button>
                     <Button color="primary" variant='contained' onClick={handleSave}>Save</Button>

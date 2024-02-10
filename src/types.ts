@@ -8,11 +8,11 @@ export type StudentResponse= {
     course: string;
     email : string;
     started : number;
-    gradution : number;
+    graduation : number;
 }
 
 export type DialogFromProps = {
-    car : StudentResponse;
+    student : StudentResponse;
     handleChange: (event:ChangeEvent<HTMLInputElement>)=> void
 }
 
