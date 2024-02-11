@@ -4,7 +4,7 @@ import { ChangeEvent } from "react";
 export type StudentResponse= {
     firstName : string;
     lastName : string;
-    gender : string;
+    gender : Gender;
     course: string;
     email : string;
     started : number;
@@ -20,7 +20,7 @@ export type Student= {
     id : number;
     firstName : string;
     lastName : string;
-    gender : string;
+    gender : Gender;
     course: string;
     email : string;
     started : number;

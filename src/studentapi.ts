@@ -21,7 +21,7 @@ export const addStudent = async (student:Student):Promise<StudentResponse> =>
         }
     });
 
-    return response.data
+   return response.data
 }
 export const updateStudent = async (studentEntry: StudentEntry): Promise<StudentResponse> => {
     console.log(`${import.meta.env.VITE_API_URL}/
