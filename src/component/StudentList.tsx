@@ -1,16 +1,17 @@
-import {DataGrid, GridCellParams, GridColDef, GridEditCellProps   } from "@mui/x-data-grid"
+import {DataGrid, GridCellParams, GridColDef, GridDeleteForeverIcon, GridEditCellProps   } from "@mui/x-data-grid"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useState } from "react"
-import { getStudents } from "../studentapi"
+import { deleteStudent, getStudents } from "../studentapi"
 import EditStudent from "./EditStudent"
 import AddStudent from "./AddStudent"
-import { Select } from "@mui/material"
+import { Button, Select, Snackbar } from "@mui/material"
+import Confirmation from "./Confirmation"
 
 const StudentList = () => {
     const queryClient = useQueryClient();
     const[open, setOpen] = useState(false)
     const [openConfirmation, setOpenConfirmation] = useState(null)
-    // const [showSnackBar, setSnackBar] = useState(false)
+    const [showSnackBar, setSnackBar] = useState(false)
 
 
     
@@ -59,11 +60,42 @@ const columns: GridColDef[] = [
 
    renderCell:(params:GridCellParams)=>
    <EditStudent studentdata={params.row}/>
-
+},
+    {field:'delete', headerName:"",width:90,sortable:false,
+    filterable:false,
+    renderCell:(params:GridCellParams)=>(
+    <>
+    <Button color='error'
+    onClick={()=>setOpenConfirmation({
+        id:params.row.id,
+        firstName:params.row.firstName,
+        lastName:params.row.lastName
+    })}
+    ><GridDeleteForeverIcon/></Button>
+    <Confirmation open={!!openConfirmation}
+    firstName={openConfirmation?.firstName}
+    lastName={openConfirmation?.lastName}
+    onClose={()=> setOpenConfirmation(null)}
+    onConfirm={()=>{
+        mutate(params.row.id);
+        setOpenConfirmation(null)
+    }}
+    >
+    </Confirmation>
+    </>
+    )
 }
-
-
     ]
+    const {mutate} = useMutation(deleteStudent, {
+        onSuccess : () => {
+          
+            queryClient.invalidateQueries({queryKey:["students"]});
+            setSnackBar(true);
+        },
+        onError : (err) =>{
+            console.error(err);
+        }
+      })
 
 
 
@@ -83,6 +115,15 @@ const columns: GridColDef[] = [
     rows={data}
     columns={columns}
     />
+        <Snackbar open={showSnackBar} 
+        autoHideDuration={2000}
+        onClose={()=> setSnackBar(false)}
+        message="Student deleted"
+        
+        />
+
+
+
     <AddStudent/>
     </>
   )

@@ -15,8 +15,8 @@ const StudentDialogContent = ({ student, handleChange }: DialogFromProps) => {
       </FormControl><br/>
       <TextField value={student.course} name="course" variant="filled" placeholder="Course" onChange={handleChange} /><br/>
       <TextField value={student.email} name="email" variant="filled" placeholder="Email" onChange={handleChange} /><br/>
-      <TextField value={student.started.toString()} name="started" variant="filled" placeholder="Started" onChange={handleChange} /><br/>
-      <TextField value={student.graduation.toString()} name="graduation" variant="filled" placeholder="Graduation" onChange={handleChange} /><br/>
+      <TextField value={student.started.toString()} name="started" variant="filled" placeholder="Started (yyyy-mm-dd)" onChange={handleChange} /><br/>
+      <TextField value={student.graduation.toString()} name="graduation" variant="filled" placeholder="Graduation (yyyy-mm-dd)" onChange={handleChange} /><br/>
     </DialogContent>
   );
 }
